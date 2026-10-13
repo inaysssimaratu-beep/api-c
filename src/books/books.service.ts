@@ -27,12 +27,12 @@ export class BooksService {
         return this.books;
     }
 
-    //mengambil data buku berdasarkan id dari database
+    // mengambil data buku berdasarkan id dari database
     findOne(id: number): Book | undefined {
         return this.books.find(book => book.id === id);
     }
 
-    //menyimpan data buku baru ke database
+    // menyimpan data buku baru ke database
     create(book: CreateBookDto): Book {
 
         const newBook: Book = {
@@ -44,28 +44,32 @@ export class BooksService {
             isAvailable: true
         }
 
-        //simpan data buku ke database
+        // simpan data buku ke database
         this.books.push(newBook);
         return newBook;
-    }   
+    }
 
-    //mengupdate data buku berdasarkan id dari database
+    // mengupdate data buku berdasarkan id dari database
     update(id: number, book: CreateBookDto): Book | undefined {
-        cost index = this.books.findIndex(b => b.id === id);
+        const index = this.books.findIndex(b => b.id === id);
+
         if (index !== -1) {
             this.books[index] = { ...this.books[index], ...book };
             return this.books[index];
         }
+
         return undefined;
     }
 
-    //menghapus data buku berdasarkan id dari database
+    // menghapus data buku berdasarkan id dari database
     delete(id: number): boolean {
         const index = this.books.findIndex(b => b.id === id);
+
         if (index !== -1) {
             this.books.splice(index, 1);
             return true;
         }
+
         return false;
     }
 }
