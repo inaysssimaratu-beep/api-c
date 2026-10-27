@@ -1,0 +1,21 @@
+services:
+#menambahkan service postgres
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: harkat_postgres_container
+    restart: always
+
+    environment:
+      POSTGRES_USER: inays
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: harkat_store_db
+
+    ports:
+    #format: "port di komputer kalian : port di container docker"
+      - "5432:5432"
+
+    volumes:
+      - postgres_data_volume:/var/lib/postgresql/data
+
+volumes:
+  postgres_data_volume:
