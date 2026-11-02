@@ -1,4 +1,8 @@
 
+import { ManyToMany, JoinTable, Relation } from 'typeorm';
+import { Author } from '../../authors/entities/author.entity.js';
+import { Publisher } from '../../publishers/entities/publisher.entity.js';
+
 import {
   Column,
   CreateDateColumn,
@@ -47,4 +51,25 @@ export class Book {
 
   @DeleteDateColumn({ name: 'deleted_at', nullable: true })
   deletedAt: Date;
+
+  @ManyToOne(() => Publisher, publisher => publisher.books, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
+  publisher: Relation<Publisher> | null;
+
+  @ManyToMany(() => Author, author => author.books)
+  @JoinTable({
+    name: 'books_authors',
+    joinColumn: {
+      name: 'book_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'author_id',
+      referencedColumnName: 'id',
+    },
+  })
+  authors: Relation<Author>[];
+
 }

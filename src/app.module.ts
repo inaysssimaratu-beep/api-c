@@ -1,4 +1,7 @@
 
+import { AuthorsModule } from './authors/authors.module.js';
+import { PublishersModule } from './publishers/publishers.module.js';
+
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -14,6 +17,8 @@ import { AuthModule } from './auth/auth.module.js';
 
 @Module({
   imports: [
+    AuthorsModule,
+    PublishersModule,
     AuthModule,
     // Konfigurasi environment
     ConfigModule.forRoot({
