@@ -1,6 +1,8 @@
+import { OrdersModule } from './orders/orders.module.js';
 
 import { AuthorsModule } from './authors/authors.module.js';
 import { PublishersModule } from './publishers/publishers.module.js';
+import { CustomersModule } from './customers/customers.module.js';
 
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -17,8 +19,10 @@ import { AuthModule } from './auth/auth.module.js';
 
 @Module({
   imports: [
+    OrdersModule,
     AuthorsModule,
     PublishersModule,
+    CustomersModule,
     AuthModule,
     // Konfigurasi environment
     ConfigModule.forRoot({

@@ -1,5 +1,7 @@
+import { OrderItem } from '../../orders/entities/order-item.entity.js';
 
-import { ManyToMany, JoinTable, Relation } from 'typeorm';
+import { ManyToMany, JoinTable, OneToMany } from 'typeorm';
+import type { Relation } from 'typeorm';
 import { Author } from '../../authors/entities/author.entity.js';
 import { Publisher } from '../../publishers/entities/publisher.entity.js';
 
@@ -35,6 +37,9 @@ export class Book {
 
   @Column({ type: 'boolean', default: true })
   isAvailable: boolean;
+
+  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
+  price: string;
 
   // Relasi Many-to-One dengan Category
   @ManyToOne(() => Category, (category) => category.books, {
@@ -72,4 +77,7 @@ export class Book {
   })
   authors: Relation<Author>[];
 
+
+  @OneToMany(() => OrderItem, (item) => item.book)
+  orderItems: Relation<OrderItem>[];
 }
