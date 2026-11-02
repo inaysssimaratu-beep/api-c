@@ -1,3 +1,5 @@
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 
 import {
   Controller,
@@ -31,12 +33,14 @@ export class BooksController {
   }
 
   // Menambahkan buku baru
+  @UseGuards(JwtAuthGuard)
   @Post()
   createBook(@Body() book: CreateBookDto) {
     return this.bookService.create(book);
   }
 
   // Mengupdate buku berdasarkan ID
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   updateBook(
     @Param('id') id: string,
@@ -46,6 +50,7 @@ export class BooksController {
   }
 
   // Menghapus buku berdasarkan ID
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   deleteBook(@Param('id') id: string) {
     return this.bookService.delete(id);
